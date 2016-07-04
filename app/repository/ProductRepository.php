@@ -37,4 +37,28 @@ class ProductRepository
     {
         return $this->products->find($id);
     }
+
+
+    /**
+     * The method for Update and Save of Product
+     *
+     * @param $request
+     * @return Object
+     */
+    public function save($request)
+    {
+        return $request->save();
+    }
+
+    /**
+     * Method for Delete the Product Item
+     * 
+     * @param $product
+     * @return Object
+     */
+    public function delete($product)
+    {
+        return $product->delete();
+    }
+
 }

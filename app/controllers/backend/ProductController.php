@@ -58,19 +58,18 @@ class ProductController extends \BaseController {
 	 */
 	public function store()
 	{
-		//create a rule validation
+
 		$rules=array(
 			'title'=>'required|min:2',
 			'price'=>'required',
 			'description'=>'required|min:5',
 			'image' => 'required'
 		);
-		//validate book information with the rules
+		
 		$validation= Validator::make(Input::all(),$rules);
+		
 		if($validation->passes())
 		{
-			//save new book information in the database
-			//and redirect to index page
 			$product = new Product;
 			$product->title = Input::get('title');
 			$product->price = Input::get('price');
@@ -84,14 +83,14 @@ class ProductController extends \BaseController {
 			}
 			$product->image= $name;
 
-			$product->save();
+			$this->products->save($product);
 
 			return Redirect::route('products.index')
 				->withInput()
 				->withErrors($validation)
 				->with('message', 'Successfully created Product.');
 		}
-		//show error message
+
 		return Redirect::route('products.create')
 			->withInput()
 			->withErrors($validation)
@@ -145,8 +144,6 @@ class ProductController extends \BaseController {
 		{
 			$product = $this->products->find($id);
 
-			//save new book information in the database
-			//and redirect to index page
 			$product->title = Input::get('title');
 			$product->price = Input::get('price');
 			$product->description = Input::get('description');
@@ -159,7 +156,7 @@ class ProductController extends \BaseController {
 				$product->image= $name;
 			}
 
-			$product->save();
+			$this->products->save($product);
 
 			return Redirect::route('products.index')
 				->withInput()
@@ -181,7 +178,8 @@ class ProductController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->products->find($id)->delete();
+		$product = $this->products->find($id);
+		$this->products->delete($product);
 		return Redirect::route('products.index')
 			->withInput()
 			->with('message', 'Successfully deleted User.');
