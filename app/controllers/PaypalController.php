@@ -36,74 +36,59 @@ class PaypalController extends \BaseController {
      */
 	public function postPayment()
 	{
+
+		$sesid = Input::get('id');
+		Session::put('carid', $sesid);
+
 		$payer = new Payer();
 		$payer->setPaymentMethod('paypal');
 
-		$item_1 = new Item();
-		$item_1->setName('Item 1') // item name
-		->setCurrency('USD')
-			->setQuantity(2)
-			->setPrice('150'); // unit price
+		$item = new Item();
+		$item->setName(Input::get('product_id'))
+			->setCurrency('EUR')
+			->setQuantity(Input::get('quantity'))
+			->setPrice(Input::get('price'));
 
-		$item_2 = new Item();
-		$item_2->setName('Item 2')
-			->setCurrency('USD')
-			->setQuantity(4)
-			->setPrice('70');
-
-
-		// add item to list
-		$item_list = new ItemList();
-		$item_list->setItems(array($item_1, $item_2));
-
+		$items[] = $item;
+		$itemlist = new ItemList();
+		$itemlist->setItems($items);
 		$amount = new Amount();
-		$amount->setCurrency('USD')
-			->setTotal(580);
+		$amount->setCurrency('EUR')
+			->setTotal(Input::get('total'));
 
 		$transaction = new Transaction();
-		$transaction->setAmount($amount)
-			->setItemList($item_list)
-			->setDescription('Your transaction description');
-
-		$redirect_urls = new RedirectUrls();
-		$redirect_urls->setReturnUrl(URL::route('payment.status')) // Specify return URL
-		->setCancelUrl(URL::route('payment.status'));
-
+		$transaction->setAmount($amount)->setItemList($itemlist)->setDescription('THis is Demo Transaction');
+		$redirect_url = new RedirectUrls();
+		$redirect_url->setReturnUrl(URL::route('payment.status'))
+			->setCancelurl(URL::route('payment.status'));
 		$payment = new Payment();
-		$payment->setIntent('Sale')
+		$payment->setIntent('sale')
 			->setPayer($payer)
-			->setRedirectUrls($redirect_urls)
+			->setRedirectUrls($redirect_url)
 			->setTransactions(array($transaction));
-
 		try {
 			$payment->create($this->_api_context);
 		} catch (\PayPal\Exception\PPConnectionException $ex) {
 			if (\Config::get('app.debug')) {
-				echo "Exception: " . $ex->getMessage() . PHP_EOL;
+				echo "Exception: " . $ex->getMessage() . PHP_EQL;
 				$err_data = json_decode($ex->getData(), true);
 				exit;
 			} else {
-				die('Some error occur, sorry for inconvenient');
+				die('SOme Error Occur, Sorry');
 			}
 		}
-
-		foreach($payment->getLinks() as $link) {
-			if($link->getRel() == 'approval_url') {
+		foreach ($payment->getLinks() as $link) {
+			if ($link->getRel() == 'approval_url') {
 				$redirect_url = $link->getHref();
 				break;
 			}
 		}
-
-		// add payment ID to session
 		Session::put('paypal_payment_id', $payment->getId());
-
-		if(isset($redirect_url)) {
-			// redirect to paypal
+		if (isset($redirect_url)) {
 			return Redirect::away($redirect_url);
 		}
+		return Redirect::route('original.route')->with('error', 'Unknown Error occured');
 
-		return Redirect::route('home')
-			->with('error', 'Unknown error occurred');
 	}
 
 	/**
@@ -111,7 +96,6 @@ class PaypalController extends \BaseController {
      */
 	public function getPaymentStatus()
 	{
-		// Get the payment ID before session clear
 		$payment_id = Session::get('paypal_payment_id');
 
 		// clear the session payment ID
@@ -124,23 +108,14 @@ class PaypalController extends \BaseController {
 
 		$payment = Payment::get($payment_id, $this->_api_context);
 
-		// PaymentExecution object includes information necessary
-		// to execute a PayPal account payment.
-		// The payer_id is added to the request query parameters
-		// when the user is redirected from paypal back to your site
 		$execution = new PaymentExecution();
 		$execution->setPayerId(Input::get('PayerID'));
 
-		//Execute the payment
 		$result = $payment->execute($execution, $this->_api_context);
-
-		//echo '<pre>';print_r($result);echo '</pre>';exit; // DEBUG RESULT, remove it later
-
-		dd($result);
 
 		if ($result->getState() == 'approved') { // payment made
 			return Redirect::route('home')
-				->with('success', 'Payment success');
+				->with('message', 'Payment success');
 		}
 		return Redirect::route('home')
 			->with('error', 'Payment failed');

@@ -12,8 +12,14 @@
     <div class="container">
 
         @if (Session::has('message'))
-            <div class="flash alert">
+            <div class="alert alert-success" role="alert">
                 <p>{{ Session::get('message') }}</p>
+            </div>
+        @endif
+
+        @if (Session::has('error'))
+            <div class="alert alert-danger" role="alert">
+                <p>{{ Session::get('error') }}</p>
             </div>
         @endif
 
