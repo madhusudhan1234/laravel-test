@@ -10,6 +10,7 @@
                 <th>Id</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Role</th>
                 <th>Email</th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -22,6 +23,7 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->last_name }}</td>
+                    <td>{{ Role::find($user->role_id)->role_name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ link_to_route('users.edit', 'Update', array($user->id),
                 array('class' => 'btn btn-warning')) }}</td>

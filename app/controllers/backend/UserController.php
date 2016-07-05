@@ -67,7 +67,7 @@ class UserController extends \BaseController {
 			return Redirect::route('users.index')
 				->withInput()
 				->withErrors($validation)
-				->with('message', 'Successfully created book.');
+				->with('message', 'Successfully created User.');
 		}
 
 		return Redirect::route('users.create')
@@ -154,6 +154,7 @@ class UserController extends \BaseController {
 	{
 		$user = $this->users->find($id);
 		$this->users->delete($user);
+		
 		return Redirect::route('users.index')
 			->withInput()
 			->with('message', 'Successfully deleted User.');

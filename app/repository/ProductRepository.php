@@ -3,6 +3,10 @@
 use Product;
 use User;
 
+/**
+ * Class ProductRepository
+ * @package repository
+ */
 class ProductRepository
 {
     /**
@@ -49,7 +53,7 @@ class ProductRepository
     {
         return $request->save();
     }
-
+    
     /**
      * Method for Delete the Product Item
      * 
@@ -61,4 +65,13 @@ class ProductRepository
         return $product->delete();
     }
 
+    /**
+     * List of all Products for Dropdown list
+     *
+     * @return array
+     */
+    public function lists()
+    {
+        return $this->products->lists('title','id');
+    }
 }

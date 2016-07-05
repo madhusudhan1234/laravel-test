@@ -21,7 +21,7 @@ class ProductController extends \BaseController {
      */
 	public function __construct(ProductRepository $products, UserRepository $users)
 	{
-		$this->beforeFilter('auth', array());
+		$this->beforeFilter('auth', array('except'=>'show'));
 
 		$this->products = $products;
 		$this->users = $users;
@@ -106,6 +106,7 @@ class ProductController extends \BaseController {
 	 */
 	public function show($id)
 	{
+
 	}
 
 

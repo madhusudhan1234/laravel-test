@@ -16,6 +16,7 @@
             <ul class="nav navbar-nav pull-right">
                 <li><a href="{{ URL::to('users') }}">Users</a></li>
                 <li><a href="{{ URL::to('products') }}">Products</a></li>
+                <li><a href="{{ URL::to('roles') }}">Roles</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->first_name.' '.Auth::user()->last_name  }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">

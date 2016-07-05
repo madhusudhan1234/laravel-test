@@ -16,6 +16,7 @@
 
             <ul class="nav navbar-nav">
                 <li><a href="{{ URL::to('/') }}">Home</a></li>
+                <li><a href="{{ URL::to('carts') }}">View Carts <i class="ion ion-android-cart"></i></a></li>
             </ul>
 
             <ul class="nav navbar-nav pull-right">

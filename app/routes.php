@@ -26,6 +26,8 @@ Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
 
 Route::resource('users','UserController');
 Route::resource('products','ProductController');
+Route::resource('roles','RoleController');
+Route::resource('carts','CartController');
 
 // Add this route for checkout or submit form to pass the item into paypal
 Route::post('payment', array(
