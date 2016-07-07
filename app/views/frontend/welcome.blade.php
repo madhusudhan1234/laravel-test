@@ -20,14 +20,13 @@
 
                             {{ Form::open (array('url' => url('product'))) }}
 
+                                <input type="hidden" name="quantity" value="20" >
 
-                                <input type="hidden" name="quantity" value="1" >
+                                <input type="hidden" name="price" value="{{ $product->price }}">
 
-                                <input type="hidden" name="price" value="200">
+                                <input type="hidden" name="productname" value="{{ $product->title }}">
 
-                                <input type="hidden" name="productname" value="Car">
-
-                                <input type="hidden" name="description" value="Hello This is the description">
+                                <input type="hidden" name="description" value="{{ $product->description }}">
 
                                 <button style="padding:5px;border-radius: 0;" class="btn btn-warning pull-right" type="submit">Send To Ebay</button>
 

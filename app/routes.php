@@ -43,4 +43,5 @@ Route::get('payment/status', array(
 ));
 
 Route::post('product',array('as'=>'add.product','uses'=>'EbayController@addToStore'));
+
 Route::get('time',array('as'=>'time','uses'=>'EbayController@time'));
