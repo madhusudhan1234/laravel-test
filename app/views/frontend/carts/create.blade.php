@@ -17,16 +17,16 @@
                     <div class="col-lg-6">
                         {{ Form::open(array('route'=>'carts.store')) }}
 
-                            <div class="form-group">
-                                {{ Form::label('quantity','Quantity') }}
-                                {{ Form::text('quantity',null,['class'=>'form-control']) }}
-                            </div>
+                        <div class="form-group">
+                            {{ Form::label('quantity','Quantity') }}
+                            {{ Form::text('quantity',null,['class'=>'form-control']) }}
+                        </div>
 
-                            {{ Form::hidden('price',$product->price) }}
+                        {{ Form::hidden('price',$product->price) }}
 
-                            {{ Form::hidden('product_id',$product->id) }}
+                        {{ Form::hidden('product_id',$product->id) }}
 
-                            {{ Form::submit('Add To Cart',['class'=>'btn btn-success pull-right']) }}
+                        {{ Form::submit('Add To Cart',['class'=>'btn btn-success pull-right']) }}
 
                         {{ Form::close() }}
                     </div>

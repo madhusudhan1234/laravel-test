@@ -13,27 +13,27 @@
 
     {{ Form::model($product, array('method' => 'PATCH', 'route' =>array('products.update', $product->id),'files'=>'true')) }}
 
-        <div class="form-group">
-            {{ Form::label('title', 'Title:') }}
-            {{ Form::text('title',null,['class'=>'form-control']) }}
-        </div>
+    <div class="form-group">
+        {{ Form::label('title', 'Title:') }}
+        {{ Form::text('title',null,['class'=>'form-control']) }}
+    </div>
 
-        <div class="form-group">
-            {{ Form::label('price', 'Price:') }}
-            {{ Form::text('price',null,['class'=>'form-control']) }}
-        </div>
+    <div class="form-group">
+        {{ Form::label('price', 'Price:') }}
+        {{ Form::text('price',null,['class'=>'form-control']) }}
+    </div>
 
-        <div class="form-group">
-            {{ Form::label('description', 'Description:') }}
-            {{ Form::textarea('description',null,['class'=>'form-control']) }}
-        </div>
+    <div class="form-group">
+        {{ Form::label('description', 'Description:') }}
+        {{ Form::textarea('description',null,['class'=>'form-control']) }}
+    </div>
 
-        <div class="form-group">
-            <label for="image"> Upload Image</label>
-            <input type="file" name="image">
-        </div>
+    <div class="form-group">
+        <label for="image"> Upload Image</label>
+        <input type="file" name="image">
+    </div>
 
-        {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+    {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
 
     {{ Form::close() }}
 

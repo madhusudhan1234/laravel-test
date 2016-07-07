@@ -1,6 +1,7 @@
 <?php
 
-class Cart extends Eloquent{
+class Cart extends Eloquent
+{
 
     /**
      * Name of the Table Which is carts
@@ -14,5 +15,5 @@ class Cart extends Eloquent{
      *
      * @var array
      */
-    protected $fillable = array('product_id','price','quantity','status');
+    protected $fillable = array('product_id', 'price', 'quantity', 'status');
 }

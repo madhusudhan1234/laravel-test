@@ -5,145 +5,148 @@ use repository\ProductRepository;
 /**
  * Class CartController
  */
-class CartController extends \BaseController {
+class CartController extends \BaseController
+{
 
-	/**
-	 * @var CartRepository
+    /**
+     * @var CartRepository
      */
-	private $carts;
-	/**
-	 * @var ProductRepository
+    private $carts;
+    /**
+     * @var ProductRepository
      */
-	private $products;
+    private $products;
 
 
-	/**
-	 * CartController constructor.
-	 * @param ProductRepository $products
-	 * @param CartRepository $carts
+    /**
+     * CartController constructor.
+     * @param ProductRepository $products
+     * @param CartRepository $carts
      */
-	public function __construct(ProductRepository $products, CartRepository $carts)
-	{
-		$this->products = $products;
-		$this->carts = $carts;
-	}
+    public function __construct(ProductRepository $products, CartRepository $carts)
+    {
+        $this->beforeFilter('admin', array('except' => ['create', 'store', 'update']));
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$carts = $this->carts->all();
+        $this->products = $products;
+        $this->carts = $carts;
+    }
 
-		return View::make('frontend.carts.index',compact('carts'));
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $carts = $this->carts->all();
 
+        return View::make('frontend.carts.index', compact('carts'));
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+    }
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$rules = array(
-			'quantity' => 'required',
-		);
-
-		$validation= Validator::make(Input::all(),$rules);
-
-		if($validation->passes())
-		{
-			$cart = new Cart();
-			$cart->product_id = Input::get('product_id');
-			$cart->user_id = 1;
-			$cart->price = Input::get('price');
-			$cart->status = 1;
-			$cart->quantity = Input::get('quantity');
-			$cart->total = Input::get('quantity') * Input::get('price');
-			$this->carts->save($cart);
-
-			return Redirect::route('carts.index')
-				->withInput()
-				->withErrors($validation)
-				->with('message', 'Successfully created Cart.');
-		}
-
-		return Redirect::route('carts.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'Some fields are Cart.');
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$product = $this->products->find($id);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $rules = array(
+            'quantity' => 'required',
+        );
 
-		return View::make('frontend.carts.create',compact('product'));
-	}
+        $validation = Validator::make(Input::all(), $rules);
 
+        if ($validation->passes()) {
+            $cart = new Cart();
+            $cart->product_id = Input::get('product_id');
+            $cart->user_id = Auth::user()->id;
+            $cart->price = Input::get('price');
+            $cart->status = 1;
+            $cart->quantity = Input::get('quantity');
+            $cart->total = Input::get('quantity') * Input::get('price');
+            $this->carts->save($cart);
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
+            return Redirect::route('carts.index')
+                ->withInput()
+                ->withErrors($validation)
+                ->with('message', 'Successfully created Cart.');
+        }
 
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+        return Redirect::route('carts.create')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'Some fields are Cart.');
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$cart = $this->carts->find($id);
-		
-		$this->carts->delete($cart);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $product = $this->products->find($id);
 
-		return Redirect::route('users.index')
-			->withInput()
-			->with('message', 'Successfully deleted User.');
-		
-	}
+        return View::make('frontend.carts.create', compact('product'));
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+
+    }
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $cart = $this->carts->find($id);
+
+        $this->carts->delete($cart);
+
+        return Redirect::route('users.index')
+            ->withInput()
+            ->with('message', 'Successfully deleted User.');
+
+    }
 
 
 }

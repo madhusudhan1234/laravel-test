@@ -3,70 +3,78 @@
 use Illuminate\Support\Facades\Auth;
 use repository\ProductRepository;
 
-class HomeController extends BaseController {
+class HomeController extends BaseController
+{
 
-	/**
-	 * @var
+    /**
+     * @var
      */
-	private $products;
+    private $products;
 
-	/**
-	 * HomeController constructor.
-	 * @param ProductRepository $products
+    /**
+     * HomeController constructor.
+     * @param ProductRepository $products
      */
-	public function __construct(ProductRepository $products)
-	{
-		$this->products = $products;
-	}
+    public function __construct(ProductRepository $products)
+    {
+        $this->products = $products;
+    }
 
-	/**
-	 * @return mixed
+    /**
+     * @return mixed
      */
-	public function index()
-	{
-		$products = $this->products->all();
+    public function index()
+    {
+        $products = $this->products->all();
 
-		return View::make('frontend.welcome',compact('products'));
-	}
+        return View::make('frontend.welcome', compact('products'));
+    }
 
-	/**
-	 * @return mixed
+    /**
+     * @return mixed
      */
-	public function getRegister()
-	{
-		return View::make('frontend.register');
-	}
+    public function getRegister()
+    {
+        return View::make('frontend.register');
+    }
 
-	/**
-	 * @return mixed
+    /**
+     * @return mixed
      */
-	public function getLogin()
-	{
-		return View::make('frontend.login');
-	}
+    public function getLogin()
+    {
+        return View::make('frontend.login');
+    }
 
-	/**
-	 * @return mixed
+    /**
+     * @return mixed
      */
-	public function postLogin()
-	{
-		if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
-			return Redirect::to('users')->with('message', 'You are now logged in!');
-		} else {
-			return Redirect::to('users/login')
-				->with('message', 'Your username/password combination was incorrect')
-				->withInput();
-		}
-	}
+    public function postLogin()
+    {
+        if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
 
-	/**
-	 * @return mixed
+            //return Redirect::to('users')->with('message', 'You are now logged in!');
+            if (Auth::user()->role_id == 1) {
+                return Redirect::route('users.index')->with('message', 'You are now logged in!');
+            } else if (Auth::user()->role_id == 2) {
+                return Redirect::route('carts.index')->with('message', 'You are now logged in!');
+            }
+
+        } else {
+            return Redirect::to('users/login')
+                ->with('message', 'Your username/password combination was incorrect')
+                ->withInput();
+        }
+    }
+
+    /**
+     * @return mixed
      */
-	public function getLogout()
-	{
-		Auth::logout();
+    public function getLogout()
+    {
+        Auth::logout();
 
-		return Redirect::to('users/login')->with('message', 'Your are now logged out!');
-	}
+        return Redirect::to('users/login')->with('message', 'Your are now logged out!');
+    }
 
 }

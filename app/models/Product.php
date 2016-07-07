@@ -1,6 +1,6 @@
 <?php
 
-class Product extends  Eloquent
+class Product extends Eloquent
 {
     /**
      * @var string
@@ -10,5 +10,5 @@ class Product extends  Eloquent
     /**
      * @var array
      */
-    protected $fillable = array('image','title','price','description');
+    protected $fillable = array('image', 'title', 'price', 'description', 'user_id');
 }

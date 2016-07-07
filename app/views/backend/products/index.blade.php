@@ -27,7 +27,7 @@
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->user_id }}</td>
                     <td><img src="assets/images/{{ $product->image }}" alt="" height="50px" width="50px"></td>
-                    <img src="" >
+                    <img src="">
                     <td>{{ link_to_route('products.edit', 'Update', array($product->id),
                 array('class' => 'btn btn-warning')) }}</td>
                     <td>

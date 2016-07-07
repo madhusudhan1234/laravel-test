@@ -7,37 +7,39 @@
         <div class="row">
             @foreach($products as $product)
 
-            <div class="col-lg-4 boxes">
-                <div class="box">
-                    <img src="assets/images/{{ $product->image }}" alt="" class="img-responsive">
-                    <h4>{{ $product->title }}</h4>
-                    <p>{{ $product->description }}</p>
-                    <div class="price-buy">
-                        <p class="pull-left" style="border:1px solid rgba(0,0,0,0.2);padding:5px;background-color: #f5f5f5">
-                            <b>$ {{ $product->price }}</b>
-                        </p>
+                <div class="col-lg-4 boxes">
+                    <div class="box">
+                        <img src="assets/images/{{ $product->image }}" alt="" class="img-responsive">
+                        <h4>{{ $product->title }}</h4>
+                        <p>{{ $product->description }}</p>
+                        <div class="price-buy">
+                            <p class="pull-left"
+                               style="border:1px solid rgba(0,0,0,0.2);padding:5px;background-color: #f5f5f5">
+                                <b>$ {{ $product->price }}</b>
+                            </p>
 
-                        {{--{{ Form::open (array('url' => url('payment'))) }}
+                            {{ Form::open (array('url' => url('product'))) }}
 
-                            <input type="hidden" name="id" value="1">
 
-                            <input type="hidden" name="product_id" value="1" >
+                                <input type="hidden" name="quantity" value="1" >
 
-                            <input type="hidden" name="price" value="200">
+                                <input type="hidden" name="price" value="200">
 
-                            <input type="hidden" name="quantity" value="2">
+                                <input type="hidden" name="productname" value="Car">
 
-                            <input type="hidden" name="total" value="400">
+                                <input type="hidden" name="description" value="Hello This is the description">
 
-                            <input type="hidden" name="status" value="1">
+                                <button style="padding:5px;border-radius: 0;" class="btn btn-warning pull-right" type="submit">Send To Ebay</button>
 
-                            {{ Form::submit('Buy This',['class'=>'btn btn-primary pull-right']) }}
+                            {{Form::close()}}
 
-                        {{Form::close()}}--}}
-                        <a href="{{ route('carts.show',$product->id) }}"><Button style="padding:5px;border-radius: 0;" class="btn btn-warning pull-right">Add To Cart <i class="ion ion-ios-cart-outline"></i></Button></a>
+                            <a href="{{ route('carts.show',$product->id) }}">
+                                <Button style="padding:5px;border-radius: 0;" class="btn btn-warning pull-right">Add To
+                                    Cart <i class="ion ion-ios-cart-outline"></i></Button>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             @endforeach
         </div>

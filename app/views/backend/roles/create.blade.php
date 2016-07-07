@@ -13,12 +13,12 @@
 
     {{ Form::open(array('route' => 'roles.store')) }}
 
-        <div class="form-group">
-            {{ Form::label('role_name', 'Role Name:') }}
-            {{ Form::text('role_name',null,['class'=>'form-control']) }}
-        </div>
+    <div class="form-group">
+        {{ Form::label('role_name', 'Role Name:') }}
+        {{ Form::text('role_name',null,['class'=>'form-control']) }}
+    </div>
 
-        {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+    {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
 
     {{ Form::close() }}
 @endsection

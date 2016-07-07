@@ -47,7 +47,6 @@ class UserRepository
     }
 
 
-
     /**
      * Get list of the all the users
      *
@@ -55,7 +54,7 @@ class UserRepository
      */
     public function lists()
     {
-        return $this->users->lists('first_name','id');
+        return $this->users->lists('first_name', 'id');
     }
 
     /**
@@ -84,7 +83,7 @@ class UserRepository
 
     /**
      * Delete The User From Database
-     * 
+     *
      * @param $user
      * @return Object
      */

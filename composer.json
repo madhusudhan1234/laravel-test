@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"intervention/image": "^2.3",
-		"paypal/rest-api-sdk-php": "*"
+		"paypal/rest-api-sdk-php": "*",
+		"dts/ebay-sdk-php": "^5.0"
 	},
 	"autoload": {
 		"classmap": [

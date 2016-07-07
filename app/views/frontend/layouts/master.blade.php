@@ -10,24 +10,24 @@
 </head>
 <body>
 
-    @include('frontend.layouts.navigation')
+@include('frontend.layouts.navigation')
 
-    <div class="container">
+<div class="container">
 
-        @if (Session::has('message'))
-            <div class="alert alert-success" role="alert">
-                <p>{{ Session::get('message') }}</p>
-            </div>
-        @endif
+    @if (Session::has('message'))
+        <div class="alert alert-success" role="alert">
+            <p>{{ Session::get('message') }}</p>
+        </div>
+    @endif
 
-        @if (Session::has('error'))
-            <div class="alert alert-danger" role="alert">
-                <p>{{ Session::get('error') }}</p>
-            </div>
-        @endif
+    @if (Session::has('error'))
+        <div class="alert alert-danger" role="alert">
+            <p>{{ Session::get('error') }}</p>
+        </div>
+    @endif
 
-        @yield('content')
+    @yield('content')
 
-    </div>
+</div>
 </body>
 </html>

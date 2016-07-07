@@ -21,7 +21,7 @@ class RoleRepository
 
     /**
      * Return all role Collection
-     * 
+     *
      * @return mixed
      */
     public function all()
@@ -36,12 +36,12 @@ class RoleRepository
      */
     public function lists()
     {
-        return $this->users->lists('role_name','id');
+        return $this->users->lists('role_name', 'id');
     }
 
     /**
      * Return The Particular Role From id
-     * 
+     *
      * @param $id
      * @return Object
      */
@@ -49,6 +49,7 @@ class RoleRepository
     {
         return $this->roles->find($id);
     }
+
     /**
      * Store/Save new Role information in the storage
      *
