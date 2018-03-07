@@ -4,6 +4,7 @@
     "laravel-elixir": "*"
   },
   "dependencies": {
-    "laravel-elixir": "^5.0.0"
+    "laravel-elixir": "^5.0.0",
+    "ua-parser-js": "0.7.16"
   }
 }
