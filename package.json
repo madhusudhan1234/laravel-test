@@ -4,6 +4,12 @@
     "laravel-elixir": "*"
   },
   "dependencies": {
-    "laravel-elixir": "^5.0.0"
-  }
+    "laravel-elixir": "^5.0.0",
+    "snyk": "^1.104.2"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
